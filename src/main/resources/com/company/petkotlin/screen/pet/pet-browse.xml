@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://petBrowse.caption"
+        focusComponent="petsTable">
+    <data readOnly="true">
+        <collection id="petTypesDc"
+                    class="com.company.petkotlin.entity.PetType">
+            <fetchPlan extends="_base"/>
+            <loader id="petTypesDl">
+                <query>
+                    <![CDATA[select e from pet_PetType e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="petsDc"
+                    class="com.company.petkotlin.entity.Pet">
+            <fetchPlan extends="_base"/>
+            <loader id="petsDl">
+                <query>
+                    <![CDATA[select e from pet_Pet e]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="ownerDc"
+                    class="com.company.petkotlin.entity.Owner"
+                    fetchPlan="_base">
+            <loader id="ownersDl">
+                <query>
+                    <![CDATA[select e from pet_Owner e]]>
+                </query>
+            </loader>
+        </collection>
+
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="petsTable" spacing="true">
+        <tabSheet id="filterTabSheet">
+            <tab id="defaultFilterTab" caption="idField" margin="true" spacing="true">
+                <hbox spacing="true">
+                    <textField
+                        width="150px"
+                        id="idFilterField"
+                        caption="msg://com.company.petkotlin.entity/Pet.identificationNumber"></textField>
+                    <entityComboBox
+                            id="typeFilterFiled"
+                            optionsContainer="petsDc"
+                            caption="msg://com.company.petkotlin.entity/Pet.type"
+                            nullOptionVisible="true"/>
+                    <entityComboBox
+                        id="ownerFilterField"
+                        optionsContainer="ownerDc"
+                        caption="msg://com.company.petkotlin.entity/Pet.owner"
+                        nullOptionVisible="true"/>
+                    <slider
+                        id="birthdateFilterField"
+                        orientation="horizontal"
+                        min="1995"
+                        max="2022"
+                        caption="birthday"
+                        updateValueOnClick="true"/>
+                    <button align="BOTTOM_CENTER"
+                            id="clearFilterBtn"
+                            action="petsTable.clearFilter"/>
+
+                </hbox>
+            </tab>
+            <tab id="extendedFielter" caption="extendedFilter" margin="true" spacing="true">
+<!--                过滤器-->
+                <filter id="filter"
+                        width="100%"
+                        collapsable="false"
+                        collapsed="false"
+                        dataLoader="petsDl">
+                    <properties include=".*"/>
+                </filter>
+            </tab>
+        </tabSheet>
+
+        <groupTable id="petsTable"
+                    width="100%"
+                    dataContainer="petsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="remove" type="remove"/>
+                <action id="clearFilter"
+                        caption="clear Filter"
+                        icon="ERASER"/>
+
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="identificationNumber"/>
+                <column id="birthdate"/>
+                <column id="type"/>
+                <column id="owner"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="petsTable.create"/>
+                <button id="editBtn" action="petsTable.edit"/>
+                <button id="removeBtn" action="petsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

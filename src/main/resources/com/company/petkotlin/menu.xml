@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/ui/menu">
+
+    <menu id="application" caption="msg://com.company.petkotlin/menu.application" insertBefore="administration">
+        <item screen="pet_User.browse" caption="msg://com.company.petkotlin.screen.user/UserBrowse.caption"/>
+        <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
+        <item screen="pet_Pet.browse" caption="msg://com.company.petkotlin.screen.pet/petBrowse.menu"/>
+        <item screen="pet_PetType.browse" caption="msg://com.company.petkotlin.screen.pettype/petTypeBrowse.menu"/>
+        <item screen="pet_Owner.browse" caption="msg://com.company.petkotlin.screen.owner/ownerBrowse.menu"/>
+        <item screen="pet_Specialty.browse"
+              caption="msg://com.company.petkotlin.screen.specialty/specialtyBrowse.menu"/>
+        <item screen="pet_Veterinarian.browse"
+              caption="msg://com.company.petkotlin.screen.veterinarian/veterinarianBrowse.menu"/>
+        <item screen="pet_Specialty.lookup"
+              caption="msg://com.company.petkotlin.screen.specialty/specialtyLookup.menu"/>
+    </menu>
+
+</menu-config>
